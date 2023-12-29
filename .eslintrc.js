@@ -11,9 +11,9 @@ module.exports = {
         // js
         'eslint:recommended'
     ],
-    parserOptions: {
-        parser: 'babel-eslint'
-    },
+    // parserOptions: {
+    //     parser: 'babel-eslint'
+    // },
     rules: {
         'vue/html-self-closing': ['error', {
           html: {
