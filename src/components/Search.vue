@@ -4,6 +4,7 @@
       class="form-control"
       v-model="title"
       type="text" 
+      @keyup.enter="apply"
       placeholder="Search for Mivoes, Series & more" />
     <div class="selects">
       <select
@@ -23,10 +24,17 @@
         </option>
       </select>
     </div>
+    <button
+      class="btn btn-primary"
+      @click="apply">
+      Apply
+    </button>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
     data() {
         return {
@@ -57,29 +65,42 @@ export default {
                 }
             ],
         }
+    },
+    methods: {
+        async apply() {
+            const OMDB_API_KEY = '1451733a'
+            const res = await axios.get(`https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${this.title}&type=${this.type}&y=${this.year}&page=1`)
+            console.log(res)
+        }
     }
 }
 </script>
 
 <style>
-    .container {
-        display: flex;
-        > * {
-            margin-right: 10px;
-            font-size: 15px;
-            &:last-child{
-                margin-right: 0;;
-            }
+.container {
+    display: flex;
+    > * {
+        margin-right: 10px;
+        font-size: 15px;
+        &:last-child{
+            margin-right: 0;;
         }
-        .selects {
-            display: flex;
-            select {
-                width: 120px;
-                margin-right: 10px;
-                &:last-child{
-                    margin-right: 0;
-                }
+    }
+    .selects {
+        display: flex;
+        select {
+            width: 120px;
+            margin-right: 10px;
+            &:last-child{
+                margin-right: 0;
             }
         }
     }
+    .btn {
+        width: 120px;
+        height: 50px;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+}
 </style>
