@@ -7,7 +7,7 @@
 <script>
 import Headline from '../components/Headline.vue'
 import Search from '../components/Search.vue'
-import MovieList from '../components/Movielist.vue';
+import MovieList from '../components/MovieList.vue'
 
 export default {
     components: {
