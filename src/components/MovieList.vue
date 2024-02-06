@@ -1,49 +1,50 @@
 <template>
-  <div
-    :style="{ backgroundImage: `url(${movie.Poster})`}"
-    class="movie">
-    <div class="info">
-      <div class="year">
-        {{ movie.Year }}
+  <div class="container">
+    <div class="inner">
+      <div class="message">
+        {{ message }}
       </div>
-      <div class="title">
-        {{ movie.Title }}
+      <div class="movies">
+        <MovieItem
+          v-for="movie in movies"
+          :key="movie.imdbID" 
+          :movie="movie" />
       </div>
-    </div>    
+    </div>
   </div>
 </template>
 
 <script>
+import MovieItem from '~/components/MovieItem'
 export default {
-    props: {
-        movie: {
-            type: Object,
-            default: () => ({})
-        }
+  components: {
+    MovieItem
+  },
+  computed: {
+    movies() {
+      return this.$store.state.movie.movies
+    },
+    message() {
+      return this.$store.state.movie.message
     }
-}</script>
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 @import "~/scss/main";
-.movie {
-    $width: 200px;
-    width: $width;
-    height: $width * 3 / 2;
-    margin: 10px;
+
+.container {
+  margin-top: 30px;
+  .inner {
+    background-color: $gray-200;
+    padding: 10px 0;
     border-radius: 4px;
-    background-color: $gray-400;
-    background-size: cover;
-    overflow: hidden;
-    position: relative;
-    .info {
-        background-color: rgba($black, .3);
-        width: 100%;
-        padding: 14px;
-        font-size: 14px;
-        text-align: center;
-        position: absolute;
-        left: 0;
-        bottom: 0;
-    }
+  }
+  .movies {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }
 </style>
